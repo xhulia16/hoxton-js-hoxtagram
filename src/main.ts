@@ -14,7 +14,7 @@
 //</article>
 
 function renderCard(){
-    let imageContainer:any =document.querySelector('image-container')
+    let imageContainer:any =document.querySelector('.image-container')
     imageContainer.textContent=''
 
     let articleEl=document.createElement('article')
@@ -57,3 +57,6 @@ articleEl.append(h2El, imgEl, divEl, ulEl)
 imageContainer.append(articleEl)
 }
 
+console.log('yay')
+
+renderCard()
