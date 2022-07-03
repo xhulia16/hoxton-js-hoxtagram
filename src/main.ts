@@ -2,6 +2,12 @@ let state = {
     images: []
 }
 function getImagesFromServer() {
+    fetch("http://localhost:3000/images")
+    .then(resp => resp.json())
+    .then(function(array){
+        let imagesSource:[]= array.map(item=> item.image)
+        console.log(imagesSource)
+    })
 
 }
 
@@ -67,3 +73,5 @@ function renderCard() {
 console.log('yay')
 
 renderCard()
+
+getImagesFromServer()
