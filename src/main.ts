@@ -4,10 +4,9 @@ let state = {
 function getImagesFromServer() {
     fetch("http://localhost:3000/images")
     .then(resp => resp.json())
-    .then(function(array){
-        let imagesSource:[]= array.map(item=> item.image)
-        console.log(imagesSource)})
-}
+    .then(imagesFromServer=> 
+        {state.images=imagesFromServer})
+        renderCard()}
 
 function renderCard() {
     // solution goes here
@@ -56,14 +55,8 @@ function renderCard() {
     let liEl = document.createElement('li')
     liEl.textContent = 'Get rid of these comments'
 
-    let liEl2 = document.createElement('li')
-    liEl2.textContent = 'And replace them with the real ones'
-
-    let liEl3 = document.createElement('li')
-    liEl3.textContent = 'From the server'
-
     divEl.append(spanEl, buttonEl)
-    ulEl.append(liEl, liEl2, liEl3)
+    ulEl.append(liEl)
     articleEl.append(h2El, imgEl, divEl, ulEl)
     imageContainer.append(articleEl)
 }
