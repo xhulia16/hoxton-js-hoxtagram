@@ -22,7 +22,7 @@ let state: State = {
     images: []
 }
 
-console.log(state.images)
+console.log(state)
 console.log('hi')
 
 function getImagesFromServer() {
