@@ -1,12 +1,31 @@
-let state = {
-    images: [],
+type CommentData = {
+    id: number
+    content: string
+    imageId: number
+}
+
+type Image = {
+    id: number
+    title: string
+    likes: number
+    image: string
+    comments: CommentData[]
+}
+
+type State = {
+    images: Image[]
+}
+
+
+let state: State = {
+    images: []
 }
 function getImagesFromServer() {
     fetch("http://localhost:3000/images")
-    .then(resp => resp.json())
-    .then(imagesFromServer=> 
-        {state.images=imagesFromServer})
-        renderCard()}
+        .then(resp => resp.json())
+        .then(imagesFromServer => { state.images = imagesFromServer })
+    renderCard()
+}
 
 function renderCard() {
     // solution goes here
@@ -25,44 +44,46 @@ function renderCard() {
     //</article>
 
     let imageContainer: any = document.querySelector('.image-container')
+    if (imageContainer === null) return
     imageContainer.textContent = ''
 
-    let articleEl = document.createElement('article')
-    articleEl.className = 'image-card'
+    for (let image of state.images) {
 
-    let h2El = document.createElement('h2')
-    h2El.className = 'tittle'
-    h2El.textContent = 'Title of image goes here'
+        let articleEl = document.createElement('article')
+        articleEl.className = 'image-card'
 
-    let imgEl = document.createElement('img')
-    imgEl.className = 'image'
-    imgEl.src = './assets/image-placeholder.jpg'
+        let h2El = document.createElement('h2')
+        h2El.className = 'tittle'
+        h2El.textContent = 'Title of image goes here'
 
-    let divEl = document.createElement('div')
-    divEl.className = 'likes-section'
+        let imgEl = document.createElement('img')
+        imgEl.className = 'image'
+        imgEl.src = image.image
 
-    let spanEl = document.createElement('span')
-    spanEl.className = 'likes'
-    spanEl.textContent = '0 likes'
+        let divEl = document.createElement('div')
+        divEl.className = 'likes-section'
 
-    let buttonEl = document.createElement('button')
-    buttonEl.className = 'like-button'
-    buttonEl.textContent = '♥'
+        let spanEl = document.createElement('span')
+        spanEl.className = 'likes'
+        spanEl.textContent = '0 likes'
 
-    let ulEl = document.createElement('ul')
-    ulEl.className = 'comments'
+        let buttonEl = document.createElement('button')
+        buttonEl.className = 'like-button'
+        buttonEl.textContent = '♥'
 
-    let liEl = document.createElement('li')
-    liEl.textContent = 'Get rid of these comments'
+        let ulEl = document.createElement('ul')
+        ulEl.className = 'comments'
 
-    divEl.append(spanEl, buttonEl)
-    ulEl.append(liEl)
-    articleEl.append(h2El, imgEl, divEl, ulEl)
-    imageContainer.append(articleEl)
+        let liEl = document.createElement('li')
+        liEl.textContent = 'Get rid of these comments'
+
+        divEl.append(spanEl, buttonEl)
+        ulEl.append(liEl)
+        articleEl.append(h2El, imgEl, divEl, ulEl)
+        imageContainer.append(articleEl)
+    }
 }
 
-console.log('yay')
-
+getImagesFromServer()
 renderCard()
 
-getImagesFromServer()
