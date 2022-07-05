@@ -26,13 +26,13 @@ console.log(state)
 console.log('hi')
 
 function getImagesFromServer() {
-    fetch("http://localhost:5000/images")
+    fetch("http://localhost:4000/images")
         .then(resp => resp.json())
-        .then(imagesFromServer => { state.images = imagesFromServer })
-    renderCard()
+        .then(imagesFromServer => { state.images = imagesFromServer 
+    render()})
 }
 
-function renderCard() {
+function render() {
     // solution goes here
     //<article class="image-card">
     //<h2 class="title">Title of image goes here</h2>
@@ -88,6 +88,5 @@ function renderCard() {
     imageContainer.append(articleEl)
 }}
 getImagesFromServer()
-renderCard()
-
+render()
 
