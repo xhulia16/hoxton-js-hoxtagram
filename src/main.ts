@@ -34,6 +34,16 @@ function getImagesFromServer() {
         })
 }
 
+function updateImage(image) {
+    return fetch(`http://localhost:4000/images/${image.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(image)
+    }).then(resp => resp.json())
+}
+
 function render() {
     // solution goes here
     //<article class="image-card">
@@ -77,6 +87,13 @@ function render() {
         let buttonEl = document.createElement('button')
         buttonEl.className = 'like-button'
         buttonEl.textContent = '♥'
+        buttonEl.addEventListener('click', function () {
+            image.likes++
+
+            updateImage(image)
+
+            render()
+        })
 
         let ulEl = document.createElement('ul')
         ulEl.className = 'comments'
